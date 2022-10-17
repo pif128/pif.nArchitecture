@@ -21,7 +21,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Rules
 		}
 
 
-		public void ProgrammingLanguageShouldExistWhenRequested(ProgrammingLanguage programmingLanguage)
+		public void ProgrammingLanguageShouldExistWhenRequested(ProgrammingLanguage? programmingLanguage)
 		{
 			if (programmingLanguage == null) throw new BusinessException("Requested programming language does not exist");
 		}

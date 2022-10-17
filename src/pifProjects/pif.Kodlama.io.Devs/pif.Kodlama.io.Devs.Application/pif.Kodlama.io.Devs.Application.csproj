@@ -15,7 +15,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Features\Technologies\Models\" />
     <Folder Include="Features\Technologies\Profiles\" />
   </ItemGroup>
 
