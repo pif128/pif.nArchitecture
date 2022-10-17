@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\pifCorePackages\pif.Core.Application\pif.Core.Application.csproj" />
+    <ProjectReference Include="..\..\..\pifCorePackages\pif.Core.CrossCuttingConcerns\pif.Core.CrossCuttingConcerns.csproj" />
+    <ProjectReference Include="..\pif.Kodlama.io.Devs.Domain\pif.Kodlama.io.Devs.Domain.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Features\Technologies\Models\" />
+    <Folder Include="Features\Technologies\Queries\" />
+    <Folder Include="Features\Technologies\Profiles\" />
+  </ItemGroup>
+
+</Project>

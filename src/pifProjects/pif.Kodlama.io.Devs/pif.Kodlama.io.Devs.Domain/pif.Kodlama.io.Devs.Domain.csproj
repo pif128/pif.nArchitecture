@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\pifCorePackages\pif.Core.Persistence\pif.Core.Persistence.csproj" />
+    <ProjectReference Include="..\..\..\pifCorePackages\pif.Core.Security\pif.Core.Security.csproj" />
+  </ItemGroup>
+
+</Project>
