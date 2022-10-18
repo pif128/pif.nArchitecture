@@ -33,7 +33,7 @@ namespace pif.Core.Persistence.Repositories
 															   include = null, bool enableTracking = true)
 		{
 			IQueryable<TEntity> query = Context.Set<TEntity>();
-			if (enableTracking)
+			if (!enableTracking)
 				query = query.AsNoTracking();
 
 			if (include != null)
@@ -107,7 +107,7 @@ namespace pif.Core.Persistence.Repositories
 															   include = null, bool enableTracking = true)
 		{
 			IQueryable<TEntity> query = Context.Set<TEntity>();
-			if (enableTracking)
+			if (!enableTracking)
 				query = query.AsNoTracking();
 
 			if (include != null)
