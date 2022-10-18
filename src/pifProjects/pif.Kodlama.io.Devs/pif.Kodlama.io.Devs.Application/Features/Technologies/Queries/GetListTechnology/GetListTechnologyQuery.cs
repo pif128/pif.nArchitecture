@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using pif.Core.Application.Requests;
 using pif.Core.Persistence.Paging;
 using pif.Kodlama.io.Devs.Application.Features.Technologies.Dtos;
@@ -31,7 +32,9 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetListT
 
 			public async Task<TechnologyListModel> Handle(GetListTechnologyQuery request, CancellationToken cancellationToken)
 			{
-				IPaginate<Technology> tecnologies = await _technologyRepository.GetListAsync(index: request.PageRequest.Page, size: request.PageRequest.PageSize);
+				IPaginate<Technology> tecnologies = await _technologyRepository.GetListAsync(include:
+					x=>x.Include(c=>c.ProgrammingLanguage),
+					index: request.PageRequest.Page, size: request.PageRequest.PageSize);
 
 				TechnologyListModel mappedTechnologyListModel = _mapper.Map<TechnologyListModel>(tecnologies);
 

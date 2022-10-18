@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using pif.Core.Application.Pipelines.Validation;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Rules;
+using pif.Kodlama.io.Devs.Application.Features.Technologies.Rules;
 using System.Reflection;
 
 namespace pif.Kodlama.io.Devs.Application
@@ -16,6 +17,7 @@ namespace pif.Kodlama.io.Devs.Application
             services.AddMediatR(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ProgrammingLanguageBusinessRules>();
+            services.AddScoped<TechnologyBusinessRules>();
 
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             //services.AddTransient(typeof(IPipelineBehavior<,>), typeof(AuthorizationBehavior<,>));

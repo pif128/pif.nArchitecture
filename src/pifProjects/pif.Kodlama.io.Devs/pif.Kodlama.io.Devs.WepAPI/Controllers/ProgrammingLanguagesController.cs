@@ -11,7 +11,7 @@ using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Queries.GetL
 
 namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 {
-    [Route("api/[controller]")]
+	[Route("api/[controller]")]
 	[ApiController]
 	public class ProgrammingLanguagesController : BaseController
 	{
@@ -31,22 +31,22 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 		[HttpGet]
 		public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
 		{
-			GetListProgrammingLanguageQuery getListBrandQuery = new() { PageRequest = pageRequest };
-			ProgrammingLanguageListModel result = await Mediator.Send(getListBrandQuery);
+			GetListProgrammingLanguageQuery getListProgrammingLanguageQuery = new() { PageRequest = pageRequest };
+			ProgrammingLanguageListModel result = await Mediator.Send(getListProgrammingLanguageQuery);
 			return Ok(result);
 		}
 
 		[HttpGet("{Id}")]
-		public async Task<IActionResult> GetById([FromRoute] GetByIdProgrammingLanguageQuery getByIdIdBrandQuery)
+		public async Task<IActionResult> GetById([FromRoute] GetByIdProgrammingLanguageQuery getByIdProgrammingLanguageQuery)
 		{
-			ProgrammingLanguageGetByIdDto brandGetByIdDto = await Mediator.Send(getByIdIdBrandQuery);
-			return Ok(brandGetByIdDto);
+			ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto = await Mediator.Send(getByIdProgrammingLanguageQuery);
+			return Ok(programmingLanguageGetByIdDto);
 		}
 		[HttpDelete("{Id}")]
 		public async Task<IActionResult> Delete([FromRoute] DeleteProgrammingLanguageCommand deleteProgrammingLanguageCommand)
 		{
 			DeletedProgrammingLanguageDto deletedProgrammingLanguageDto = await Mediator.Send(deleteProgrammingLanguageCommand);
-			return Created("", deletedProgrammingLanguageDto);
+			return Ok(deletedProgrammingLanguageDto);
 		}
 	}
 }

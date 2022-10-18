@@ -13,9 +13,4 @@
     <ProjectReference Include="..\pif.Kodlama.io.Devs.Domain\pif.Kodlama.io.Devs.Domain.csproj" />
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Features\Technologies\Profiles\" />
-  </ItemGroup>
-
 </Project>

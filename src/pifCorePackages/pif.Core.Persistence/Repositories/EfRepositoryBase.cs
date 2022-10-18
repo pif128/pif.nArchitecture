@@ -18,9 +18,31 @@ namespace pif.Core.Persistence.Repositories
 			Context = context;
 		}
 
-		public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+		//public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate, string? include=null )
+		//{
+		//	return include!=null
+		//		? await Context.Set<TEntity>().Include(include).FirstOrDefaultAsync(predicate)
+		//		: await Context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+		//}
+		//public Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate)
+		//{
+		//	//return await Context.Set<TEntity>().Include<TEntity>(include).FirstOrDefaultAsync(predicate);
+		//}
+		public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate,
+														   Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>?
+															   include = null, bool enableTracking = true)
 		{
-			return await Context.Set<TEntity>().FirstOrDefaultAsync(predicate);
+			IQueryable<TEntity> query = Context.Set<TEntity>();
+			if (enableTracking)
+				query = query.AsNoTracking();
+
+			if (include != null)
+				query = include(query);
+
+			if (predicate != null)
+				query = query.Where(predicate);
+
+			return await query.FirstOrDefaultAsync();
 		}
 
 		public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null,
@@ -80,9 +102,22 @@ namespace pif.Core.Persistence.Repositories
 			return entity;
 		}
 
-		public TEntity? Get(Expression<Func<TEntity, bool>> predicate)
+		public TEntity? Get(Expression<Func<TEntity, bool>> predicate,
+														   Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>?
+															   include = null, bool enableTracking = true)
 		{
-			return Context.Set<TEntity>().FirstOrDefault(predicate);
+			IQueryable<TEntity> query = Context.Set<TEntity>();
+			if (enableTracking)
+				query = query.AsNoTracking();
+
+			if (include != null)
+				query = include(query);
+
+			if (predicate != null)
+				query = query.Where(predicate);
+
+			return query.FirstOrDefault();
+			//return Context.Set<TEntity>().FirstOrDefault(predicate);
 		}
 
 		public IPaginate<TEntity> GetList(Expression<Func<TEntity, bool>>? predicate = null,

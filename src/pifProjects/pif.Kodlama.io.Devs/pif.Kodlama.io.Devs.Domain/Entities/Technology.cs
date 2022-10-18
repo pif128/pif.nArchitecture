@@ -11,7 +11,7 @@ namespace pif.Kodlama.io.Devs.Domain.Entities
 	{
 		public string Name { get; set; }
 
-		public int? ProgrammingLanguageId { get; set; }
+		public int ProgrammingLanguageId { get; set; }
 		public virtual ProgrammingLanguage? ProgrammingLanguage { get; set; }
 
 
@@ -19,7 +19,7 @@ namespace pif.Kodlama.io.Devs.Domain.Entities
 		{
 		}
 
-		public Technology(int id, string name, int? programingLanguageId) : this()
+		public Technology(int id, string name, int programingLanguageId) : this()
 		{
 			Id = id;
 			Name = name;

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 using pif.Kodlama.io.Devs.Application.Features.Technologies.Dtos;
 using pif.Kodlama.io.Devs.Application.Features.Technologies.Rules;
 using pif.Kodlama.io.Devs.Application.Services.Repositories;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetByIdTechnology
 {
-	public class GetByIdTechnologyQuery:IRequest<TechnologyGetByIdDto>
+	public class GetByIdTechnologyQuery : IRequest<TechnologyGetByIdDto>
 	{
 		public int Id { get; set; }
 
@@ -31,9 +32,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetByIdT
 
 			public async Task<TechnologyGetByIdDto> Handle(GetByIdTechnologyQuery request, CancellationToken cancellationToken)
 			{
-				Technology? technology = await _technologyRepository.GetAsync(x=>x.Id==request.Id);
+				Technology? technology = await _technologyRepository.GetAsync(x => x.Id == request.Id,
+					include:x=>x.Include(c=>c.ProgrammingLanguage));
 				_technologyBusinessRules.TechnologyShouldExistWhenRequested(technology);
-				TechnologyGetByIdDto technologyGetByIdDto=_mapper.Map<TechnologyGetByIdDto>(technology);
+				TechnologyGetByIdDto technologyGetByIdDto = _mapper.Map<TechnologyGetByIdDto>(technology);
 
 				return technologyGetByIdDto;
 			}

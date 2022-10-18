@@ -17,6 +17,7 @@ namespace pif.Kodlama.io.Devs.Persistance
 													 options.UseSqlServer(
 														 configuration.GetConnectionString("OdevDay3ConnectionString")));
 			services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();
+			services.AddScoped<ITechnologyRepository, TechnologyRepository>();
 
 			return services;
 		}

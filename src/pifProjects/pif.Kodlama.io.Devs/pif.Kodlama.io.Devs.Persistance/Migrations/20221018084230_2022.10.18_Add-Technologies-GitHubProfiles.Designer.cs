@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using pif.Kodlama.io.Devs.Persistance.Contexts;
 
@@ -11,9 +12,10 @@ using pif.Kodlama.io.Devs.Persistance.Contexts;
 namespace pif.Kodlama.io.Devs.Persistance.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221018084230_2022.10.18_Add-Technologies-GitHubProfiles")]
+    partial class _20221018_AddTechnologiesGitHubProfiles
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
