@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetByIdTechnology
 {
-	public class GetByIdTechnologyQuery : IRequest<TechnologyGetByIdDto>
+	public class GetByIdTechnologyQuery : IRequest<GetByIdTechnologyDto>
 	{
 		public int Id { get; set; }
 
-		public class GetByIdTecnologyQueryHandler : IRequestHandler<GetByIdTechnologyQuery, TechnologyGetByIdDto>
+		public class GetByIdTecnologyQueryHandler : IRequestHandler<GetByIdTechnologyQuery, GetByIdTechnologyDto>
 		{
 			private readonly ITechnologyRepository _technologyRepository;
 			private readonly IMapper _mapper;
@@ -30,12 +30,12 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetByIdT
 				_technologyBusinessRules = technologyBusinessRules;
 			}
 
-			public async Task<TechnologyGetByIdDto> Handle(GetByIdTechnologyQuery request, CancellationToken cancellationToken)
+			public async Task<GetByIdTechnologyDto> Handle(GetByIdTechnologyQuery request, CancellationToken cancellationToken)
 			{
 				Technology? technology = await _technologyRepository.GetAsync(x => x.Id == request.Id,
 					include:x=>x.Include(c=>c.ProgrammingLanguage));
 				_technologyBusinessRules.TechnologyShouldExistWhenRequested(technology);
-				TechnologyGetByIdDto technologyGetByIdDto = _mapper.Map<TechnologyGetByIdDto>(technology);
+				GetByIdTechnologyDto technologyGetByIdDto = _mapper.Map<GetByIdTechnologyDto>(technology);
 
 				return technologyGetByIdDto;
 			}

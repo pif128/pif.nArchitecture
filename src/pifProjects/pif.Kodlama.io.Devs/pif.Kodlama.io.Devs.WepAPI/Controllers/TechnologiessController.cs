@@ -37,13 +37,13 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 		public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
 		{
 			GetListTechnologyQuery getListTechnologyQuery = new() { PageRequest = pageRequest };
-			TechnologyListModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
+			ListTechnologyModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
 			return Ok(technologyListModel);
 		}
 		[HttpGet("Id")]
 		public async Task<IActionResult> GetById([FromQuery] GetByIdTechnologyQuery getByIdTechnologyQuery)
 		{
-			TechnologyGetByIdDto technologyGetByIdDto = await Mediator.Send(getByIdTechnologyQuery);
+			GetByIdTechnologyDto technologyGetByIdDto = await Mediator.Send(getByIdTechnologyQuery);
 			return Ok(technologyGetByIdDto);
 		}
 	}

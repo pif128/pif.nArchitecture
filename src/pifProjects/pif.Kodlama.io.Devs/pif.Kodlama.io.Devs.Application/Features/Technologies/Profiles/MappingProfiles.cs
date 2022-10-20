@@ -36,12 +36,12 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Profiles
 
 
 
-			CreateMap<IPaginate<Technology>, TechnologyListModel>().ReverseMap();
+			CreateMap<IPaginate<Technology>, ListTechnologyModel>().ReverseMap();
 
-			CreateMap<Technology, TechnologyListDto>()
+			CreateMap<Technology, GetListTechnologyDto>()
 				.ForMember(x => x.ProgramminLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name))
 				.ReverseMap();
-			CreateMap<Technology, TechnologyGetByIdDto>()
+			CreateMap<Technology, GetByIdTechnologyDto>()
 				.ForMember(x => x.ProgramminLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name))
 				.ReverseMap();
 

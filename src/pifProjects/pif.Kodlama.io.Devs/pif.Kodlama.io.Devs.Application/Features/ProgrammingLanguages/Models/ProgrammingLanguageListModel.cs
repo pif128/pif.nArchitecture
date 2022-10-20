@@ -5,7 +5,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Models
 {
     public class ProgrammingLanguageListModel : BasePageableModel
     {
-        public IList<ProgrammingLanguageListDto> Items { get; set; }
+        public IList<GetListProgrammingLanguageDto> Items { get; set; }
 
         //
     }

@@ -39,7 +39,7 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 		[HttpGet("{Id}")]
 		public async Task<IActionResult> GetById([FromRoute] GetByIdProgrammingLanguageQuery getByIdProgrammingLanguageQuery)
 		{
-			ProgrammingLanguageGetByIdDto programmingLanguageGetByIdDto = await Mediator.Send(getByIdProgrammingLanguageQuery);
+			GetByIdProgrammingLanguageDto programmingLanguageGetByIdDto = await Mediator.Send(getByIdProgrammingLanguageQuery);
 			return Ok(programmingLanguageGetByIdDto);
 		}
 		[HttpDelete("{Id}")]

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Models
 {
-	public class TechnologyListModel:BasePageableModel
+	public class ListTechnologyModel:BasePageableModel
 	{
-		public IList<TechnologyListDto> Items { get; set; }
+		public IList<GetListTechnologyDto> Items { get; set; }
 	}
 }

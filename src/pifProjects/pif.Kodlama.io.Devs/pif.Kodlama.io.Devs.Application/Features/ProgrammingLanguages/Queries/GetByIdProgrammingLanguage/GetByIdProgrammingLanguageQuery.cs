@@ -14,10 +14,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Queries.
 {
     //ProgrammingLanguage
 
-    public class GetByIdProgrammingLanguageQuery : IRequest<ProgrammingLanguageGetByIdDto>
+    public class GetByIdProgrammingLanguageQuery : IRequest<GetByIdProgrammingLanguageDto>
     {
         public int Id { get; set; }
-        public class GetByIdProgrammingLanguageQueryHandler : IRequestHandler<GetByIdProgrammingLanguageQuery, ProgrammingLanguageGetByIdDto>
+        public class GetByIdProgrammingLanguageQueryHandler : IRequestHandler<GetByIdProgrammingLanguageQuery, GetByIdProgrammingLanguageDto>
         {
             private readonly IProgrammingLanguageRepository _programmingLanguageRepository;
             private readonly IMapper _mapper;
@@ -30,13 +30,13 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Queries.
                 _programmingLanguageBusinessRules = programmingLanguageBusinessRules;
             }
 
-            public async Task<ProgrammingLanguageGetByIdDto> Handle(GetByIdProgrammingLanguageQuery request, CancellationToken cancellationToken)
+            public async Task<GetByIdProgrammingLanguageDto> Handle(GetByIdProgrammingLanguageQuery request, CancellationToken cancellationToken)
             {
                 ProgrammingLanguage? programmingLanguage = await _programmingLanguageRepository.GetAsync(b => b.Id == request.Id);
 
                 _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenRequested(programmingLanguage);
 
-                ProgrammingLanguageGetByIdDto brandGetByIdDto = _mapper.Map<ProgrammingLanguageGetByIdDto>(programmingLanguage);
+				GetByIdProgrammingLanguageDto brandGetByIdDto = _mapper.Map<GetByIdProgrammingLanguageDto>(programmingLanguage);
                 return brandGetByIdDto;
             }
         }
