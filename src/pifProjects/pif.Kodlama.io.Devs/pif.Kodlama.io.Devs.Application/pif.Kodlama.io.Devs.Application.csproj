@@ -13,4 +13,11 @@
     <ProjectReference Include="..\pif.Kodlama.io.Devs.Domain\pif.Kodlama.io.Devs.Domain.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Folder Include="Features\Auths\Models\" />
+    <Folder Include="Features\Auths\Queries\" />
+    <Folder Include="Features\Auths\Profiles\" />
+  </ItemGroup>
+
 </Project>

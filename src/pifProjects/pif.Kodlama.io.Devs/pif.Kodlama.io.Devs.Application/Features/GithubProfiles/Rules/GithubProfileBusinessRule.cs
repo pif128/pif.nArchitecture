@@ -13,9 +13,9 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Rules
 	public class GithubProfileBusinessRule
 	{
 		private readonly IGithubProfileRepository _githubProfileRepository;
-		private readonly IUserRepository _userRepository;
+		private readonly IKodlamaUserRepository _userRepository;
 
-		public GithubProfileBusinessRule(IGithubProfileRepository githubProfileRepository, IUserRepository userRepository)
+		public GithubProfileBusinessRule(IGithubProfileRepository githubProfileRepository, IKodlamaUserRepository userRepository)
 		{
 			_githubProfileRepository = githubProfileRepository;
 			_userRepository = userRepository;

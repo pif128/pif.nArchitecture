@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace pif.Kodlama.io.Devs.Application.Features.Auths.Dtos
+{
+    public class RegisteredDto:RefreshedTokenDto
+    {
+        //
+        public string UserName { get; set; }
+    }
+}
