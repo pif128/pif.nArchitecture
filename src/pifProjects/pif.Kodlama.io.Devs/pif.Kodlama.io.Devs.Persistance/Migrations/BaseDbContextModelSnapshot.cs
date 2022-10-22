@@ -36,7 +36,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("OperationClaim");
+                    b.ToTable("OperationClaims");
                 });
 
             modelBuilder.Entity("pif.Core.Security.Entities.RefreshToken", b =>
@@ -80,7 +80,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("RefreshToken");
+                    b.ToTable("RefreshTokens");
                 });
 
             modelBuilder.Entity("pif.Core.Security.Entities.User", b =>
@@ -93,6 +93,10 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.Property<int>("AuthenticatorType")
                         .HasColumnType("int");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -119,7 +123,9 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("User");
+                    b.ToTable("Users");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
 
             modelBuilder.Entity("pif.Core.Security.Entities.UserOperationClaim", b =>
@@ -142,7 +148,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserOperationClaim");
+                    b.ToTable("UserOperationClaims");
                 });
 
             modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.GithubProfile", b =>
@@ -216,7 +222,8 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                         .HasColumnName("Name");
 
                     b.Property<int>("ProgrammingLanguageId")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("ProgrammingLanguageId");
 
                     b.HasKey("Id");
 
@@ -243,6 +250,17 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                             Name = "JPS",
                             ProgrammingLanguageId = 2
                         });
+                });
+
+            modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.KodlamaUser", b =>
+                {
+                    b.HasBaseType("pif.Core.Security.Entities.User");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("KodlamaUser");
                 });
 
             modelBuilder.Entity("pif.Core.Security.Entities.RefreshToken", b =>
@@ -277,7 +295,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
             modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.GithubProfile", b =>
                 {
-                    b.HasOne("pif.Core.Security.Entities.User", "User")
+                    b.HasOne("pif.Kodlama.io.Devs.Domain.Entities.KodlamaUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

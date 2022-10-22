@@ -12,7 +12,7 @@ namespace pif.Kodlama.io.Devs.Domain.Entities
 	{
 		public string GithubAddress { get; set; }
 		public int UserId { get; set; }
-		public virtual User? User { get; set; }
+		public virtual KodlamaUser? User { get; set; }
 
 
 		public GithubProfile()

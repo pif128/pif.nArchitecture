@@ -35,12 +35,12 @@ namespace pif.Kodlama.io.Devs.Application.Features.Auths.Commands.LoginKodlamaUs
 
 			async Task<LoginnedDto> IRequestHandler<LoginKodlamaUserNameCommand, LoginnedDto>.Handle(LoginKodlamaUserNameCommand request, CancellationToken cancellationToken)
 			{
-				byte[] passwordHash, passwordSalt;
-				HashingHelper.CreatePasswordHash(request.KodlamaUserForLoginUserNameDto.Password, out passwordHash, out passwordSalt);
 
-				KodlamaUser kodlamaUser = _kodlamaUserRepository.Get(x => x.UserName == request.KodlamaUserForLoginUserNameDto.UserName && x.PasswordHash == passwordHash && x.PasswordSalt == passwordSalt);
+				KodlamaUser kodlamaUser = _kodlamaUserRepository.Get(x => x.UserName == request.KodlamaUserForLoginUserNameDto.UserName);
 				await _authBusinessRules.CheckKodlamaUserWhenLogin(kodlamaUser);
 
+				var verifyPassword = HashingHelper.VerifyPasswordHash(request.KodlamaUserForLoginUserNameDto.Password, kodlamaUser.PasswordHash, kodlamaUser.PasswordSalt);
+				await _authBusinessRules.CheckKodlamaUserPasswordWhenLogin(verifyPassword);
 
 				AccessToken createdAccessToken = await _authService.CreateAccessToken(kodlamaUser);
 				RefreshToken createdRefreshToken = await _authService.CreateRefreshToken(kodlamaUser, request.IpAddress);

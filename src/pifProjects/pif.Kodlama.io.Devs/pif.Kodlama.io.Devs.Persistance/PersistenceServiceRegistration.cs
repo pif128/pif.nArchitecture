@@ -18,6 +18,11 @@ namespace pif.Kodlama.io.Devs.Persistance
 														 configuration.GetConnectionString("OdevDay3ConnectionString")));
 			services.AddScoped<IProgrammingLanguageRepository, ProgrammingLanguageRepository>();
 			services.AddScoped<ITechnologyRepository, TechnologyRepository>();
+			services.AddScoped<IGithubProfileRepository, GithubProfileRepository>();
+			services.AddScoped<IKodlamaUserRepository, KodlamaUserRepository>();
+			services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+			services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+			services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
 
 			return services;
 		}

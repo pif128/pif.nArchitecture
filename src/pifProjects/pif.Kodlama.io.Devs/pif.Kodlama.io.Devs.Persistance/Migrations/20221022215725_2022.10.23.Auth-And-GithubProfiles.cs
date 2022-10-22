@@ -5,12 +5,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace pif.Kodlama.io.Devs.Persistance.Migrations
 {
-    public partial class _20221018_AddTechnologiesGitHubProfiles : Migration
+    public partial class _20221023AuthAndGithubProfiles : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "OperationClaim",
+                name: "OperationClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,7 +19,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OperationClaim", x => x.Id);
+                    table.PrimaryKey("PK_OperationClaims", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,7 +43,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "User",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -54,11 +54,13 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                     PasswordSalt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     PasswordHash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     Status = table.Column<bool>(type: "bit", nullable: false),
-                    AuthenticatorType = table.Column<int>(type: "int", nullable: false)
+                    AuthenticatorType = table.Column<int>(type: "int", nullable: false),
+                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_User", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -74,15 +76,15 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 {
                     table.PrimaryKey("PK_GithubProfiles", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GithubProfiles_User_UserId",
+                        name: "FK_GithubProfiles_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "RefreshToken",
+                name: "RefreshTokens",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -99,17 +101,17 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RefreshToken", x => x.Id);
+                    table.PrimaryKey("PK_RefreshTokens", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_RefreshToken_User_UserId",
+                        name: "FK_RefreshTokens_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserOperationClaim",
+                name: "UserOperationClaims",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -119,17 +121,17 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserOperationClaim", x => x.Id);
+                    table.PrimaryKey("PK_UserOperationClaims", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_UserOperationClaim_OperationClaim_OperationClaimId",
+                        name: "FK_UserOperationClaims_OperationClaims_OperationClaimId",
                         column: x => x.OperationClaimId,
-                        principalTable: "OperationClaim",
+                        principalTable: "OperationClaims",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserOperationClaim_User_UserId",
+                        name: "FK_UserOperationClaims_Users_UserId",
                         column: x => x.UserId,
-                        principalTable: "User",
+                        principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -155,8 +157,8 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_RefreshToken_UserId",
-                table: "RefreshToken",
+                name: "IX_RefreshTokens_UserId",
+                table: "RefreshTokens",
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
@@ -165,13 +167,13 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 column: "ProgrammingLanguageId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOperationClaim_OperationClaimId",
-                table: "UserOperationClaim",
+                name: "IX_UserOperationClaims_OperationClaimId",
+                table: "UserOperationClaims",
                 column: "OperationClaimId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserOperationClaim_UserId",
-                table: "UserOperationClaim",
+                name: "IX_UserOperationClaims_UserId",
+                table: "UserOperationClaims",
                 column: "UserId");
         }
 
@@ -181,19 +183,19 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                 name: "GithubProfiles");
 
             migrationBuilder.DropTable(
-                name: "RefreshToken");
+                name: "RefreshTokens");
 
             migrationBuilder.DropTable(
                 name: "Technologies");
 
             migrationBuilder.DropTable(
-                name: "UserOperationClaim");
+                name: "UserOperationClaims");
 
             migrationBuilder.DropTable(
-                name: "OperationClaim");
+                name: "OperationClaims");
 
             migrationBuilder.DropTable(
-                name: "User");
+                name: "Users");
         }
     }
 }

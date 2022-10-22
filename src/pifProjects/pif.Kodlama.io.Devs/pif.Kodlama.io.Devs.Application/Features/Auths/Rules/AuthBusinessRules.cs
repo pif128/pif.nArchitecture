@@ -1,5 +1,7 @@
-﻿using pif.Core.CrossCuttingConcerns.Exceptions;
+﻿using MediatR;
+using pif.Core.CrossCuttingConcerns.Exceptions;
 using pif.Core.Security.Entities;
+using pif.Core.Security.Hashing;
 using pif.Kodlama.io.Devs.Application.Services.Repositories;
 using pif.Kodlama.io.Devs.Domain.Entities;
 using System;
@@ -34,7 +36,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.Auths.Rules
 		public async Task CheckKodlamaUserWhenLogin(KodlamaUser kodlamaUser)
 		{
 			if (kodlamaUser == null) throw new BusinessException("username or password is incorrect");
-
+		}
+		public async Task CheckKodlamaUserPasswordWhenLogin(bool verify)
+		{
+			if (!verify) throw new BusinessException("username or password is incorrect");
 		}
 	}
 }
