@@ -31,9 +31,11 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Profiles
 
 			CreateMap<GithubProfile, GetListGithubProfiledDto>()
 				.ForMember(x => x.UserId, opt => opt.MapFrom(c => c.User.Id))
+				.ForMember(x => x.UserName, opt => opt.MapFrom(c => c.User.UserName))
 				.ReverseMap();
 			CreateMap<GithubProfile, GetByIdGithubProfileDto>()
 				.ForMember(x => x.UserId, opt => opt.MapFrom(c => c.User.Id))
+				.ForMember(x => x.UserName, opt => opt.MapFrom(c => c.User.UserName))
 				.ReverseMap();
 
 			CreateMap<GithubProfile, GetByIdGithubProfileQuery>().ReverseMap();

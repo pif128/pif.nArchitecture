@@ -25,10 +25,14 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Profiles
 	{
 		public MappingProfiles()
 		{
-			CreateMap<Technology, CreatedTechnologyDto>().ReverseMap();
+			CreateMap<Technology, CreatedTechnologyDto>()
+				.ForMember(x => x.ProgramminLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name))
+				.ReverseMap();
 			CreateMap<Technology, CreateTechnologyCommand>().ReverseMap();
 
-			CreateMap<Technology, UpdatedTechnologyDto>().ReverseMap();
+			CreateMap<Technology, UpdatedTechnologyDto>()
+				.ForMember(x => x.ProgramminLanguageName, opt => opt.MapFrom(c => c.ProgrammingLanguage.Name))
+				.ReverseMap();
 			CreateMap<Technology, UpdateTechnologyCommand>().ReverseMap();
 
 			CreateMap<Technology, DeletedTechnologyDto>().ReverseMap();

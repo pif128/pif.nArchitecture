@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using pif.Core.Security.Entities;
+using pif.Core.Security.Hashing;
 using pif.Kodlama.io.Devs.Domain.Entities;
 
 namespace pif.Kodlama.io.Devs.Persistance.Contexts
@@ -11,7 +12,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Contexts
 		public DbSet<ProgrammingLanguage> ProgrammingLanguages { get; set; }
 		public DbSet<Technology> Technologies { get; set; }
 		public DbSet<GithubProfile> GithubProfiles { get; set; }
-		public DbSet<User> Users { get; set; }
+		public DbSet<KodlamaUser> Users { get; set; }
 		public DbSet<OperationClaim> OperationClaims { get; set; }
 		public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
 		public DbSet<RefreshToken> RefreshTokens { get; set; }
@@ -64,6 +65,35 @@ namespace pif.Kodlama.io.Devs.Persistance.Contexts
 				a.HasOne(p => p.User);
 			});
 
+
+			//modelBuilder.Entity<KodlamaUser>(a =>
+			//{
+			//	a.ToTable("Users").HasKey(k => k.Id);
+			//	a.Property(p => p.Id).HasColumnName("Id");
+			//	a.Property(p => p.FirstName).HasColumnName("FirstName");
+			//	a.Property(p => p.LastName).HasColumnName("LastName");
+			//	a.Property(p => p.UserName).HasColumnName("UserName");
+			//	a.Property(p => p.Email).HasColumnName("Email");
+			//	a.Property(p => p.PasswordHash).HasColumnName("PasswordHash");
+			//	a.Property(p => p.PasswordSalt).HasColumnName("PasswordSalt");
+			//	a.Property(p => p.Status).HasColumnName("Status");
+			//	a.HasMany(p => p.RefreshTokens);
+			//	a.HasMany(p => p.UserOperationClaims);
+			//	a.HasMany(p => p.GithubProfiles);
+			//});
+
+
+			byte[] passwordHash, passwordSalt;
+			HashingHelper.CreatePasswordHash("TestPassword", out passwordHash, out passwordSalt);
+
+
+			KodlamaUser[] kodlamaUsers = {
+				new(1, "pif128", "pif", "128", "pif@pif128.com", passwordSalt, passwordHash, true),
+				new(2, "2pif128", "pif2", "128", "pif2@pif128.com", passwordSalt, passwordHash, true) };
+			modelBuilder.Entity<KodlamaUser>().HasData(kodlamaUsers);
+
+			GithubProfile[] githubProfiles = { new(1, 1, "/pif128"), new(2, 1, "/aaa") };
+			modelBuilder.Entity<GithubProfile>().HasData(githubProfiles);
 
 
 		}

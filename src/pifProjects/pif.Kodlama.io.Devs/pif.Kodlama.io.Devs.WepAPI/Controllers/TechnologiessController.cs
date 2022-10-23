@@ -27,8 +27,8 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 			UpdatedTechnologyDto updatedTechnologyDto = await Mediator.Send(updateTechnologyCommand);
 			return Created("", updatedTechnologyDto);
 		}
-		[HttpDelete("Id")]
-		public async Task<IActionResult> Delete([FromBody] DeleteTechnologyCommand deleteTechnologyCommand)
+		[HttpDelete("{Id}")]
+		public async Task<IActionResult> Delete([FromRoute] DeleteTechnologyCommand deleteTechnologyCommand)
 		{
 			DeletedTechnologyDto deletedTechnologyDto = await Mediator.Send(deleteTechnologyCommand);
 			return Ok(deletedTechnologyDto);
@@ -40,8 +40,8 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 			ListTechnologyModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
 			return Ok(technologyListModel);
 		}
-		[HttpGet("Id")]
-		public async Task<IActionResult> GetById([FromQuery] GetByIdTechnologyQuery getByIdTechnologyQuery)
+		[HttpGet("{Id}")]
+		public async Task<IActionResult> GetById([FromRoute] GetByIdTechnologyQuery getByIdTechnologyQuery)
 		{
 			GetByIdTechnologyDto technologyGetByIdDto = await Mediator.Send(getByIdTechnologyQuery);
 			return Ok(technologyGetByIdDto);

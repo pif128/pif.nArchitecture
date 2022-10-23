@@ -10,6 +10,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands
 {
     public partial class UpdateProgrammingLanguageCommand : IRequest<UpdatedProgrammingLanguageDto>
 	{
+		public int Id { get; set; }
 		public string Name { get; set; }
 
 		public class UpdateProgrammingLanguageCommandHandler : IRequestHandler<UpdateProgrammingLanguageCommand, UpdatedProgrammingLanguageDto>

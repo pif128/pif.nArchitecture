@@ -14,8 +14,9 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Commands.UpdateT
 {
 	public class UpdateTechnologyCommand : IRequest<UpdatedTechnologyDto>
 	{
+		public int Id { get; set; }
 		public string Name { get; set; }
-		public int? ProgmammingLanguageId { get; set; }
+		public int? ProgrammingLanguageId { get; set; }
 
 		public class UpdateTechnologyCommandHandler : IRequestHandler<UpdateTechnologyCommand, UpdatedTechnologyDto>
 		{
@@ -33,7 +34,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Commands.UpdateT
 			public async Task<UpdatedTechnologyDto> Handle(UpdateTechnologyCommand request, CancellationToken cancellationToken)
 			{
 				await _technologyBusinessRules.TechnologyCanNotBeDuplicatedWhenUpdated(request.Name);
-				await _technologyBusinessRules.TechnologyShouldBeProgrammingLanguageIdWhenUpdated(request.ProgmammingLanguageId);
+				await _technologyBusinessRules.TechnologyShouldBeProgrammingLanguageIdWhenUpdated(request.ProgrammingLanguageId);
 
 				Technology mappedTechnology = _mapper.Map<Technology>(request);
 

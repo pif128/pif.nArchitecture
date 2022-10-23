@@ -34,7 +34,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Rules
 
 		public async Task GithubAddressShouldBeUserIdWhenInserted(int? userId)
 		{
-			var result = await _userRepository.GetListAsync(x => x.Id == userId);
+			var result = await _userRepository.GetAsync(x => x.Id == userId);
 			if (result == null) throw new BusinessException("User does not exist.");
 
 		}
@@ -48,6 +48,11 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Rules
 			var result = await _userRepository.GetListAsync(x => x.Id == userId);
 			if (result == null) throw new BusinessException("User does not exist.");
 
+		}
+
+		public void GithubProfileShouldExistWhenRequested(GithubProfile? githubProfile)
+		{
+			if (githubProfile == null) throw new BusinessException("Github Profile does not exist.");
 		}
 	}
 }

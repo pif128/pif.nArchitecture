@@ -123,7 +123,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("User");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("User");
                 });
@@ -174,6 +174,20 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("GithubProfiles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            GithubAddress = "/pif128",
+                            UserId = 1
+                        },
+                        new
+                        {
+                            Id = 2,
+                            GithubAddress = "/aaa",
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.ProgrammingLanguage", b =>
@@ -261,6 +275,32 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("KodlamaUser");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AuthenticatorType = 0,
+                            Email = "pif@pif128.com",
+                            FirstName = "pif",
+                            LastName = "128",
+                            PasswordHash = new byte[] { 150, 76, 52, 242, 2, 47, 239, 144, 242, 185, 248, 148, 181, 95, 176, 28, 53, 81, 167, 138, 33, 23, 60, 245, 69, 54, 116, 144, 175, 63, 55, 247, 200, 151, 11, 19, 207, 90, 160, 112, 249, 129, 34, 62, 95, 94, 96, 17, 133, 2, 243, 163, 255, 164, 79, 49, 244, 3, 128, 80, 143, 44, 126, 159 },
+                            PasswordSalt = new byte[] { 14, 176, 244, 8, 72, 212, 211, 115, 248, 176, 251, 202, 237, 242, 133, 112, 150, 133, 89, 173, 44, 196, 151, 238, 152, 124, 170, 107, 141, 118, 56, 58, 59, 239, 202, 192, 113, 166, 40, 90, 117, 175, 148, 153, 232, 71, 27, 66, 120, 53, 197, 171, 84, 151, 149, 165, 219, 148, 75, 162, 169, 237, 145, 102, 39, 44, 76, 51, 71, 108, 174, 139, 44, 34, 227, 144, 9, 240, 179, 221, 172, 154, 132, 208, 180, 248, 243, 116, 246, 150, 189, 62, 71, 254, 7, 176, 245, 204, 0, 192, 48, 4, 230, 61, 9, 228, 237, 28, 164, 177, 111, 3, 219, 16, 78, 191, 87, 137, 126, 41, 142, 106, 195, 234, 126, 35, 5, 44 },
+                            Status = true,
+                            UserName = "pif128"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AuthenticatorType = 0,
+                            Email = "pif2@pif128.com",
+                            FirstName = "pif2",
+                            LastName = "128",
+                            PasswordHash = new byte[] { 150, 76, 52, 242, 2, 47, 239, 144, 242, 185, 248, 148, 181, 95, 176, 28, 53, 81, 167, 138, 33, 23, 60, 245, 69, 54, 116, 144, 175, 63, 55, 247, 200, 151, 11, 19, 207, 90, 160, 112, 249, 129, 34, 62, 95, 94, 96, 17, 133, 2, 243, 163, 255, 164, 79, 49, 244, 3, 128, 80, 143, 44, 126, 159 },
+                            PasswordSalt = new byte[] { 14, 176, 244, 8, 72, 212, 211, 115, 248, 176, 251, 202, 237, 242, 133, 112, 150, 133, 89, 173, 44, 196, 151, 238, 152, 124, 170, 107, 141, 118, 56, 58, 59, 239, 202, 192, 113, 166, 40, 90, 117, 175, 148, 153, 232, 71, 27, 66, 120, 53, 197, 171, 84, 151, 149, 165, 219, 148, 75, 162, 169, 237, 145, 102, 39, 44, 76, 51, 71, 108, 174, 139, 44, 34, 227, 144, 9, 240, 179, 221, 172, 154, 132, 208, 180, 248, 243, 116, 246, 150, 189, 62, 71, 254, 7, 176, 245, 204, 0, 192, 48, 4, 230, 61, 9, 228, 237, 28, 164, 177, 111, 3, 219, 16, 78, 191, 87, 137, 126, 41, 142, 106, 195, 234, 126, 35, 5, 44 },
+                            Status = true,
+                            UserName = "2pif128"
+                        });
                 });
 
             modelBuilder.Entity("pif.Core.Security.Entities.RefreshToken", b =>
@@ -296,7 +336,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
             modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.GithubProfile", b =>
                 {
                     b.HasOne("pif.Kodlama.io.Devs.Domain.Entities.KodlamaUser", "User")
-                        .WithMany()
+                        .WithMany("GithubProfiles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -325,6 +365,11 @@ namespace pif.Kodlama.io.Devs.Persistance.Migrations
             modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.ProgrammingLanguage", b =>
                 {
                     b.Navigation("Technologies");
+                });
+
+            modelBuilder.Entity("pif.Kodlama.io.Devs.Domain.Entities.KodlamaUser", b =>
+                {
+                    b.Navigation("GithubProfiles");
                 });
 #pragma warning restore 612, 618
         }

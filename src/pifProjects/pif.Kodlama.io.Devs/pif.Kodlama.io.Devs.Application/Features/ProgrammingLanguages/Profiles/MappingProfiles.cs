@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
 using pif.Core.Persistence.Paging;
+using pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Queries.GetByIdGithubProfile;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.CreateProgrammingLanguage;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLanguage;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.UpdateProgrammingLanguage;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Dtos;
 using pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Models;
+using pif.Kodlama.io.Devs.Application.Features.Technologies.Dtos;
 using pif.Kodlama.io.Devs.Domain.Entities;
 
 namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Profiles
@@ -27,7 +29,9 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Profiles
 			CreateMap<IPaginate<ProgrammingLanguage>, ProgrammingLanguageListModel>().ReverseMap();
 
 			CreateMap<ProgrammingLanguage, GetListProgrammingLanguageDto>().ReverseMap();
-			CreateMap<ProgrammingLanguage, GetListProgrammingLanguageDto>().ReverseMap();
+
+			CreateMap<ProgrammingLanguage, GetByIdProgrammingLanguageDto>().ReverseMap();
+			CreateMap<ProgrammingLanguage, GetByIdGithubProfileQuery>().ReverseMap();
 		}
 	}
 }
