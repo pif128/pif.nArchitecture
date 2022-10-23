@@ -1,5 +1,6 @@
 ﻿using pif.Core.CrossCuttingConcerns.Exceptions;
 using pif.Core.Persistence.Paging;
+using pif.Core.Security.Entities;
 using pif.Kodlama.io.Devs.Application.Services.Repositories;
 using pif.Kodlama.io.Devs.Domain.Entities;
 using System;
@@ -53,6 +54,12 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Rules
 		public void GithubProfileShouldExistWhenRequested(GithubProfile? githubProfile)
 		{
 			if (githubProfile == null) throw new BusinessException("Github Profile does not exist.");
+		}
+		public async Task GithubProfileShouldExistWhenDeleted(int? id)
+		{
+			GithubProfile? result = await _githubProfileRepository.GetAsync(x => x.Id == id);
+			if (result == null) throw new BusinessException("Github Profile does not exist.");
+
 		}
 	}
 }

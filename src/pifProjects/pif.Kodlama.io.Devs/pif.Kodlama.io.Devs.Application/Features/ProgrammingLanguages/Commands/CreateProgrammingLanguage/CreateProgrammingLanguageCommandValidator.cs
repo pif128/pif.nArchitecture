@@ -11,8 +11,8 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands
 	{
 		public CreateProgrammingLanguageCommandValidator()
 		{
-			RuleFor(c => c.Name).NotEmpty();
-			RuleFor(c => c.Name).MinimumLength(2);
+			RuleFor(x => x.Name).NotEmpty();
+			RuleFor(x => x.Name).MinimumLength(2);
 		}
 	}
 }

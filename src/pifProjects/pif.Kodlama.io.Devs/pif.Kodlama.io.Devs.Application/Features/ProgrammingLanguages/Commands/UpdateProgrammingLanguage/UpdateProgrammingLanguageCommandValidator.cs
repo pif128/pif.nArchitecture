@@ -6,8 +6,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands
 	{
 		public UpdateProgrammingLanguageCommandValidator()
 		{
-			RuleFor(c => c.Name).NotEmpty();
-			RuleFor(c => c.Name).MinimumLength(2);
+			RuleFor(x => x.Id).NotEmpty();
+			RuleFor(x => x.Id).GreaterThan(0);
+			RuleFor(x => x.Name).NotEmpty();
+			RuleFor(x => x.Name).MinimumLength(2);
 		}
 	}
 }

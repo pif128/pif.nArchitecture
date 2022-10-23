@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Commands.DeleteGithubProfile
 {
-	public class DeleteGithubProfileCommand:IRequest<DeletedGithubProfileDto>
+	public class DeleteGithubProfileCommand : IRequest<DeletedGithubProfileDto>
 	{
 		public int Id { get; set; }
 
@@ -31,9 +31,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.GithubProfiles.Commands.Delet
 
 			public async Task<DeletedGithubProfileDto> Handle(DeleteGithubProfileCommand request, CancellationToken cancellationToken)
 			{
+				await _githubProfileBusinessRule.GithubProfileShouldExistWhenDeleted(request.Id);
 				GithubProfile mappedGithubProfile = _mapper.Map<GithubProfile>(request);
-				GithubProfile deletedGithubProfile =await _githubProfileRepository.DeleteAsync(mappedGithubProfile);
-				DeletedGithubProfileDto deletedGithubProfileDto=_mapper.Map<DeletedGithubProfileDto>(deletedGithubProfile);
+				GithubProfile deletedGithubProfile = await _githubProfileRepository.DeleteAsync(mappedGithubProfile);
+				DeletedGithubProfileDto deletedGithubProfileDto = _mapper.Map<DeletedGithubProfileDto>(deletedGithubProfile);
 				return deletedGithubProfileDto;
 			}
 		}

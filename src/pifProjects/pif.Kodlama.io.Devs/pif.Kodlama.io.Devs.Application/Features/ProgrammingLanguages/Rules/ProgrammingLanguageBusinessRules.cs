@@ -32,6 +32,12 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Rules
 			IPaginate<ProgrammingLanguage> result = await _programmingLanguageRepository.GetListAsync(b => b.Name == name);
 			if (result.Items.Count > 1) throw new BusinessException("Programming language name exists.");
 		}
+		public async Task ProgrammingLanguageShouldExistWhenDeleted(int? id)
+		{
+			ProgrammingLanguage? result = await _programmingLanguageRepository.GetAsync(x => x.Id == id);
+			if (result == null) throw new BusinessException("Programming Language does not exist.");
+
+		}
 
 	}
 }

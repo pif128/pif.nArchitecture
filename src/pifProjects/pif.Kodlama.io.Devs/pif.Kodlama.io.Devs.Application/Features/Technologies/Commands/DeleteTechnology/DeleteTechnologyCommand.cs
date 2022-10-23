@@ -30,6 +30,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Commands.DeleteT
 
 			public async Task<DeletedTechnologyDto> Handle(DeleteTechnologyCommand request, CancellationToken cancellationToken)
 			{
+				await _technologyBusinessRules.TechnologyShouldExistWhenDeleted(request.Id);
 				Technology mappedTechnology = _mapper.Map<Technology>(request);
 				Technology deletedTechnology = await _technologyRepository.DeleteAsync(mappedTechnology);
 

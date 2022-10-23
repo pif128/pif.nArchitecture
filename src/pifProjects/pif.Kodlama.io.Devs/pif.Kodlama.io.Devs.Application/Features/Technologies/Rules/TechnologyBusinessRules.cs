@@ -53,5 +53,11 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Rules
 			if (!result.Items.Any()) throw new BusinessException("Programming Language does not exist.");
 
 		}
+		public async Task TechnologyShouldExistWhenDeleted(int? id)
+		{
+			Technology? result = await _technologyRepository.GetAsync(x => x.Id == id);
+			if (result == null) throw new BusinessException("Technology does not exist.");
+
+		}
 	}
 }

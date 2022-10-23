@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands.DeleteProgrammingLanguage
 {
-    public partial class DeleteProgrammingLanguageCommand : IRequest<DeletedProgrammingLanguageDto>
+	public partial class DeleteProgrammingLanguageCommand : IRequest<DeletedProgrammingLanguageDto>
 	{
 		public int Id { get; set; }
 
@@ -32,6 +32,7 @@ namespace pif.Kodlama.io.Devs.Application.Features.ProgrammingLanguages.Commands
 
 			public async Task<DeletedProgrammingLanguageDto> Handle(DeleteProgrammingLanguageCommand request, CancellationToken cancellationToken)
 			{
+				await _programmingLanguageBusinessRules.ProgrammingLanguageShouldExistWhenDeleted(request.Id);
 
 				ProgrammingLanguage mappedProgrammingLanguage = _mapper.Map<ProgrammingLanguage>(request);
 				ProgrammingLanguage updatedProgrammingLanguage = await _programmingLanguageRepository.DeleteAsync(mappedProgrammingLanguage);
