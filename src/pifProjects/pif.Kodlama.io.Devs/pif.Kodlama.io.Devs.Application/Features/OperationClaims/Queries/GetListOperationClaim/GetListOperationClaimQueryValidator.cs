@@ -11,9 +11,10 @@ namespace pif.Kodlama.io.Devs.Application.Features.OperationClaims.Queries.GetLi
 	{
 		public GetListOperationClaimQueryValidator()
 		{
-			RuleFor(x => x.PageRequest.Page).NotEmpty();
+			//RuleFor(x => x.PageRequest.Page).NotEmpty();
 			RuleFor(x => x.PageRequest.PageSize).NotEmpty();
-			RuleFor(x => x.PageRequest.PageSize).NotEqual(0);
+			RuleFor(x => x.PageRequest.Page).GreaterThanOrEqualTo(0);
+			RuleFor(x => x.PageRequest.PageSize).GreaterThan(0);
 		}
 	}
 }

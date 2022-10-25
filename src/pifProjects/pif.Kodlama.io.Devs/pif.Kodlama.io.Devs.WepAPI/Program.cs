@@ -17,6 +17,11 @@ builder.Services.AddSecurityServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
 //builder.Services.AddInfrastructureServices();
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAuthorization(x => x.AddPolicy("AdminForUpdate", policy => policy.RequireClaim("Admin")));
+builder.Services.AddAuthorization(x => x.AddPolicy("AdminForDelete", policy => policy.RequireClaim("Admin")));
+builder.Services.AddAuthorization(x => x.AddPolicy("AdminForCreate", policy => policy.RequireClaim("Admin")));
+builder.Services.AddAuthorization(x => x.AddPolicy("AdminForGetById", policy => policy.RequireClaim("Admin")));
+builder.Services.AddAuthorization(x => x.AddPolicy("AdminForGetList", policy => policy.RequireClaim("Admin")));
 
 TokenOptions? tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.EntityFrameworkCore;
 using pif.Core.Security.Entities;
 using pif.Core.Security.Hashing;
 using pif.Core.Security.JWT;
@@ -36,7 +37,8 @@ namespace pif.Kodlama.io.Devs.Application.Features.Auths.Commands.LoginKodlamaUs
 			async Task<LoginnedDto> IRequestHandler<LoginKodlamaUserNameCommand, LoginnedDto>.Handle(LoginKodlamaUserNameCommand request, CancellationToken cancellationToken)
 			{
 
-				KodlamaUser kodlamaUser = _kodlamaUserRepository.Get(x => x.UserName == request.KodlamaUserForLoginUserNameDto.UserName);
+				KodlamaUser kodlamaUser =await _kodlamaUserRepository.GetAsync(x => x.UserName == request.KodlamaUserForLoginUserNameDto.UserName,
+					include:x=>x.Include(c=>c.UserOperationClaims));
 				await _authBusinessRules.CheckKodlamaUserWhenLogin(kodlamaUser);
 
 				var verifyPassword = HashingHelper.VerifyPasswordHash(request.KodlamaUserForLoginUserNameDto.Password, kodlamaUser.PasswordHash, kodlamaUser.PasswordSalt);

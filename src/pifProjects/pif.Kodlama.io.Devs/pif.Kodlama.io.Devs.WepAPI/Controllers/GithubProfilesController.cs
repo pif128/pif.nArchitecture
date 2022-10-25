@@ -1,4 +1,5 @@
 ﻿using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using pif.Core.Application.Requests;
@@ -24,24 +25,28 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 	public class GithubProfilesController : BaseController
 	{
 		[HttpPost]
+		[Authorize(Policy = "AdminForCreate")]
 		public async Task<IActionResult> Add([FromBody] CreateGithubProfileCommand createGithubProfileCommand)
 		{
 			CreatedGithubProfileDto createdGithubProfileDto = await Mediator.Send(createGithubProfileCommand);
 			return Created("", createdGithubProfileDto);
 		}
 		[HttpPut]
+		[Authorize(Policy = "AdminForUpdate")]
 		public async Task<IActionResult> Update([FromBody] UpdateGithubProfileCommand updateGithubProfileCommand)
 		{
 			UpdatedGithubProfileDto updatedGithubProfileDto = await Mediator.Send(updateGithubProfileCommand);
 			return Created("", updatedGithubProfileDto);
 		}
 		[HttpDelete("{Id}")]
+		[Authorize(Policy = "AdminForDelete")]
 		public async Task<IActionResult> Delete([FromRoute] DeleteGithubProfileCommand deleteGithubProfileCommand)
 		{
 			DeletedGithubProfileDto deletedGithubProfileDto = await Mediator.Send(deleteGithubProfileCommand);
 			return Ok(deletedGithubProfileDto);
 		}
 		[HttpGet]
+		[Authorize(Policy = "AdminForGetList")]
 		public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
 		{
 			GetListGithubProfileQuery getListGithubProfileQuery = new() { PageRequest = pageRequest };
@@ -49,6 +54,7 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 			return Ok(githubProfileListModel);
 		}
 		[HttpGet("{Id}")]
+		//[Authorize(Policy = "AdminForGetById")]
 		public async Task<IActionResult> GetById([FromRoute] GetByIdGithubProfileQuery getByIdGithubProfileQuery)
 		{
 			GetByIdGithubProfileDto getByIdGithubProfileDto = await Mediator.Send(getByIdGithubProfileQuery);
