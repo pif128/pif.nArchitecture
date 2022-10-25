@@ -3,6 +3,7 @@ using pif.Core.Persistence.Paging;
 using pif.Core.Security.Entities;
 using pif.Core.Security.JWT;
 using pif.Kodlama.io.Devs.Application.Services.Repositories;
+using pif.Kodlama.io.Devs.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +15,11 @@ namespace pif.Kodlama.io.Devs.Application.Services.AuthService
 
 	public class AuthManager : IAuthService
 	{
-		private readonly IUserOperationClaimRepository _userOperationClaimRepository;
+		private readonly IKodlamaUserOperationClaimRepository _userOperationClaimRepository;
 		private readonly ITokenHelper _tokenHelper;
 		private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-		public AuthManager(IUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IRefreshTokenRepository refreshTokenRepository)
+		public AuthManager(IKodlamaUserOperationClaimRepository userOperationClaimRepository, ITokenHelper tokenHelper, IRefreshTokenRepository refreshTokenRepository)
 		{
 			_userOperationClaimRepository = userOperationClaimRepository;
 			_tokenHelper = tokenHelper;
@@ -33,7 +34,7 @@ namespace pif.Kodlama.io.Devs.Application.Services.AuthService
 
 		public async Task<AccessToken> CreateAccessToken(User user)
 		{
-			IPaginate<UserOperationClaim> userOperationClaims =
+			IPaginate<KodlamaUserOperationClaim> userOperationClaims =
 			   await _userOperationClaimRepository.GetListAsync(u => u.UserId == user.Id,
 																include: u =>
 																	u.Include(u => u.OperationClaim)

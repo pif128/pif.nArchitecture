@@ -18,7 +18,8 @@ namespace pif.Kodlama.io.Devs.Domain.Entities
 
 		}
 
-		public KodlamaUser(int id,string userName,string firstName,string lastName,string email, byte[] passwordSalt, byte[] passwordHash, bool status)
+		public KodlamaUser(int id,string userName,string firstName,string lastName,string email, byte[] passwordSalt, byte[] passwordHash, bool status):this()
+			//:base(id,    firstName,  lastName,  email, passwordSalt,  passwordHash,  status,AuthenticatorType.None)
 		{
 			Id = id;
 			UserName = userName;

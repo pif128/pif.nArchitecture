@@ -1,6 +1,7 @@
 ﻿using pif.Core.Persistence.Repositories;
 using pif.Core.Security.Entities;
 using pif.Kodlama.io.Devs.Application.Services.Repositories;
+using pif.Kodlama.io.Devs.Domain.Entities;
 using pif.Kodlama.io.Devs.Persistance.Contexts;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Persistance.Repositories
 {
-	public class UserOperationClaimRepository : EfRepositoryBase<UserOperationClaim, BaseDbContext>, IUserOperationClaimRepository
+	public class KodlamaUserOperationClaimRepository : EfRepositoryBase<KodlamaUserOperationClaim, BaseDbContext>, IKodlamaUserOperationClaimRepository
 	{
-		public UserOperationClaimRepository(BaseDbContext context) : base(context)
+		public KodlamaUserOperationClaimRepository(BaseDbContext context) : base(context)
 		{
 		}
 	}

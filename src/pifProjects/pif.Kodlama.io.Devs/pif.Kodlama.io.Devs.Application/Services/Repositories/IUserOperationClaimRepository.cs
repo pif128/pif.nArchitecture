@@ -1,5 +1,6 @@
 ﻿using pif.Core.Persistence.Repositories;
 using pif.Core.Security.Entities;
+using pif.Kodlama.io.Devs.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Services.Repositories
 {
-	public interface IUserOperationClaimRepository : IAsyncRepository<UserOperationClaim>, IRepository<UserOperationClaim>
+	public interface IKodlamaUserOperationClaimRepository : IAsyncRepository<KodlamaUserOperationClaim>, IRepository<KodlamaUserOperationClaim>
 	{
 	}
 }

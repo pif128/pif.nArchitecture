@@ -37,7 +37,7 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 		public async Task<IActionResult> GetList([FromQuery] PageRequest pageRequest)
 		{
 			GetListTechnologyQuery getListTechnologyQuery = new() { PageRequest = pageRequest };
-			ListTechnologyModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
+			TechnologyListModel technologyListModel = await Mediator.Send(getListTechnologyQuery);
 			return Ok(technologyListModel);
 		}
 		[HttpGet("{Id}")]

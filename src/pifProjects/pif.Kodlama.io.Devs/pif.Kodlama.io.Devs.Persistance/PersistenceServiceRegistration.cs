@@ -22,7 +22,7 @@ namespace pif.Kodlama.io.Devs.Persistance
 			services.AddScoped<IKodlamaUserRepository, KodlamaUserRepository>();
 			services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
 			services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
-			services.AddScoped<IUserOperationClaimRepository, UserOperationClaimRepository>();
+			services.AddScoped<IKodlamaUserOperationClaimRepository, KodlamaUserOperationClaimRepository>();
 
 			return services;
 		}

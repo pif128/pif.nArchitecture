@@ -14,7 +14,7 @@ namespace pif.Kodlama.io.Devs.Persistance.Contexts
 		public DbSet<GithubProfile> GithubProfiles { get; set; }
 		public DbSet<KodlamaUser> Users { get; set; }
 		public DbSet<OperationClaim> OperationClaims { get; set; }
-		public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+		public DbSet<KodlamaUserOperationClaim> UserOperationClaims { get; set; }
 		public DbSet<RefreshToken> RefreshTokens { get; set; }
 
 
@@ -94,6 +94,22 @@ namespace pif.Kodlama.io.Devs.Persistance.Contexts
 
 			GithubProfile[] githubProfiles = { new(1, 1, "/pif128"), new(2, 1, "/aaa") };
 			modelBuilder.Entity<GithubProfile>().HasData(githubProfiles);
+
+
+			OperationClaim[] operationClaims = { new(1,"Admin"), new(2, "User") };
+			modelBuilder.Entity<OperationClaim>().HasData(operationClaims);
+
+
+			//modelBuilder.Entity<KodlamaUserOperationClaim>(a =>
+			//{
+			//	a.ToTable("UserOperationClaims").HasKey(k => k.Id);
+			//	a.Property(p => p.Id).HasColumnName("Id");
+			//	a.HasOne(p => p.KodlamaUser);
+			//});
+
+			KodlamaUserOperationClaim[] userOperationClaims = { new(1, 1, 1), new(2, 2, 2) };
+			modelBuilder.Entity<KodlamaUserOperationClaim>().HasData(userOperationClaims);
+
 
 
 		}

@@ -15,11 +15,11 @@ using System.Threading.Tasks;
 
 namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetListTechnology
 {
-	public class GetListTechnologyQuery : IRequest<ListTechnologyModel>
+	public class GetListTechnologyQuery : IRequest<TechnologyListModel>
 	{
 		public PageRequest PageRequest { get; set; }
 
-		public class GetlistTechnologyHandler : IRequestHandler<GetListTechnologyQuery, ListTechnologyModel>
+		public class GetlistTechnologyHandler : IRequestHandler<GetListTechnologyQuery, TechnologyListModel>
 		{
 			private readonly ITechnologyRepository _technologyRepository;
 			private readonly IMapper _mapper;
@@ -30,13 +30,13 @@ namespace pif.Kodlama.io.Devs.Application.Features.Technologies.Queries.GetListT
 				_mapper = mapper;
 			}
 
-			public async Task<ListTechnologyModel> Handle(GetListTechnologyQuery request, CancellationToken cancellationToken)
+			public async Task<TechnologyListModel> Handle(GetListTechnologyQuery request, CancellationToken cancellationToken)
 			{
 				IPaginate<Technology> tecnologies = await _technologyRepository.GetListAsync(include:
 					x=>x.Include(c=>c.ProgrammingLanguage),
 					index: request.PageRequest.Page, size: request.PageRequest.PageSize);
 
-				ListTechnologyModel mappedTechnologyListModel = _mapper.Map<ListTechnologyModel>(tecnologies);
+				TechnologyListModel mappedTechnologyListModel = _mapper.Map<TechnologyListModel>(tecnologies);
 
 				return mappedTechnologyListModel;
 			}
