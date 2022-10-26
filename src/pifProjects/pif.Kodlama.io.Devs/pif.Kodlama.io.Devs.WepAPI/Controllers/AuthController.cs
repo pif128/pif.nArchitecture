@@ -1,9 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using pif.Core.Security.Dtos;
 using pif.Core.Security.Entities;
 using pif.Kodlama.io.Devs.Application.Features.Auths.Commands.LoginKodlamaUserName;
 using pif.Kodlama.io.Devs.Application.Features.Auths.Commands.RegisterKodlamaUser;
 using pif.Kodlama.io.Devs.Application.Features.Auths.Dtos;
+using System.IdentityModel.Tokens.Jwt;
+using System.Linq.Dynamic.Core.Tokenizer;
+using System.Security.Claims;
+using System.Text;
 
 namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 {
@@ -44,5 +49,10 @@ namespace pif.Kodlama.io.Devs.WepAPI.Controllers
 			CookieOptions cookieOptions = new() { HttpOnly = true, Expires = DateTime.Now.AddDays(7) };
 			Response.Cookies.Append("refreshToken", refreshToken.Token, cookieOptions);
 		}
+
+
+
+
+
 	}
 }
